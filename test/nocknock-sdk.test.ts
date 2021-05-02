@@ -36,12 +36,34 @@ const makeErrorCall = () => {
 }
 
 describe('NockNockSdk', () => {
+  it('Throw errors if init function called with no baseUrl.', async () => {
+    expect(() => {
+      nockNockSdk.init({ config: {} })
+    }).toThrowError('No base url provided! Please call init and pass some configuration')
+  })
+
   it('Throw errors if init function not called', async () => {
     expect(() => {
       nockNockSdk.auth.login({ password: '', username: '' })
     }).toThrowError(
       'You have to initialize some configuration first. Please call .init() method and set some configuration.'
     )
+  })
+
+  it('uses default axios as http client library when middleware is not defined', async () => {
+    nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+    expect(!!nockNockSdk._httpClient).not.toBeUndefined()
+    expect(!!nockNockSdk._httpClient).toBeTruthy()
+  })
+
+  it('uses middleware instead of default axios for http client library.', async () => {
+    const httpClient = new Promise(() => {})
+    nockNockSdk.init({
+      config: { baseURL: 'https://jsonplaceholder.typicode.com' },
+      middleware: httpClient as any
+    })
+    expect(!!nockNockSdk._httpClient).not.toBeUndefined()
+    expect(nockNockSdk._httpClient).toMatchObject(httpClient)
   })
 
   describe('Login functionality', () => {
