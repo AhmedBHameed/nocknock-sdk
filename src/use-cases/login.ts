@@ -1,6 +1,6 @@
-import { NockNock } from '../models/NockNockModel'
+import { LoginInput, NockNock } from '../models/NockNockModel'
 
-function login<T = any>(this: NockNock, username: string, password: string): Promise<T> {
+function login<T = any>(this: NockNock, userData: LoginInput): Promise<T> {
   if (!this._httpClient) {
     throw new Error(
       'You have to initialize some configuration first. Please call .init() method and set some configuration.'
@@ -19,7 +19,7 @@ function login<T = any>(this: NockNock, username: string, password: string): Pro
       }
       `,
     variables: {
-      userData: { email: username, password }
+      userData: { email: userData.username, password: userData.password }
     }
   })
 }

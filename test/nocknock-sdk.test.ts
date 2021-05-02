@@ -1,24 +1,36 @@
 import { rest, server } from './testServer'
 import nockNockSdk from '../src/nocknock-sdk'
-import { mockErrorLoginData, mockLoginData } from './generateData'
+import {
+  mockErrorData,
+  mockForgotPasswordData,
+  mockResetPasswordData,
+  mockLoginData,
+  mockSignupData,
+  mockMessageData
+} from './generateData'
 
+const MOCK_ERROR_DATA = mockErrorData()
+// Login
 const MOCK_LOGIN_DATA = mockLoginData()
-const MOCK_ERROR_LOGIN_DATA = mockErrorLoginData()
+// Signup
+const MOCK_SIGNUP_DATA = mockSignupData()
+// ForgotPassword
+const MOCK_FORGOT_PASSWORD_DATA = mockForgotPasswordData()
+// ResetPassword
+const MOCK_RESET_PASSWORD_DATA = mockResetPasswordData()
+// Message
+const MOCK_MESSAGE_DATA = mockMessageData()
 
-// const dummyApiUrl = 'http://api.dummy.com/nodeys/v1/graphql'
-
-const makeSuccessfulCall = () => {
+const makeSuccessfulCall = (data: any) => {
   server.use(
-    rest.post('*/nodeys/v1/graphql', async (_, res, ctx) =>
-      res(ctx.status(200), ctx.json(MOCK_LOGIN_DATA))
-    )
+    rest.post('*/nodeys/v1/graphql', async (_, res, ctx) => res(ctx.status(200), ctx.json(data)))
   )
 }
 
 const makeErrorCall = () => {
   server.use(
     rest.post('*/nodeys/v1/graphql', async (_, res, ctx) =>
-      res(ctx.status(200), ctx.json(MOCK_ERROR_LOGIN_DATA))
+      res(ctx.status(200), ctx.json(MOCK_ERROR_DATA))
     )
   )
 }
@@ -26,7 +38,7 @@ const makeErrorCall = () => {
 describe('NockNockSdk', () => {
   it('Throw errors if init function not called', async () => {
     expect(() => {
-      nockNockSdk.auth.login('', '')
+      nockNockSdk.auth.login({ password: '', username: '' })
     }).toThrowError(
       'You have to initialize some configuration first. Please call .init() method and set some configuration.'
     )
@@ -34,10 +46,13 @@ describe('NockNockSdk', () => {
 
   describe('Login functionality', () => {
     it('returns result on valid data', async () => {
-      makeSuccessfulCall()
+      makeSuccessfulCall(MOCK_LOGIN_DATA)
 
       nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
-      const response = await nockNockSdk.auth.login('a@b.com', 'Test@123123')
+      const response = await nockNockSdk.auth.login({
+        password: 'Test@123123',
+        username: 'a@b.com'
+      })
 
       expect(response.data).toMatchObject(MOCK_LOGIN_DATA)
     })
@@ -46,9 +61,92 @@ describe('NockNockSdk', () => {
       makeErrorCall()
 
       nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
-      const response = await nockNockSdk.auth.login('a@b.com', 'Test@123123')
+      const response = await nockNockSdk.auth.login({
+        password: 'Test@123123',
+        username: 'a@b.com'
+      })
 
-      expect(response.data).toMatchObject(MOCK_ERROR_LOGIN_DATA)
+      expect(response.data).toMatchObject(MOCK_ERROR_DATA)
+    })
+  })
+
+  describe('Signup functionality', () => {
+    it('returns result on valid data', async () => {
+      makeSuccessfulCall(MOCK_MESSAGE_DATA)
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.signup(MOCK_SIGNUP_DATA)
+
+      expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
+    })
+
+    it('returns error on invalid signup data', async () => {
+      makeErrorCall()
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.signup(MOCK_SIGNUP_DATA)
+
+      expect(response.data).toMatchObject(MOCK_ERROR_DATA)
+    })
+  })
+
+  describe('ForgotPassword functionality', () => {
+    it('returns result on valid data', async () => {
+      makeSuccessfulCall(MOCK_MESSAGE_DATA)
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.forgotPassword(MOCK_FORGOT_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
+    })
+
+    it('returns error on invalid signup data', async () => {
+      makeErrorCall()
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.forgotPassword(MOCK_FORGOT_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_ERROR_DATA)
+    })
+  })
+
+  describe('ResetPassword functionality', () => {
+    it('returns result on valid data', async () => {
+      makeSuccessfulCall(MOCK_MESSAGE_DATA)
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
+    })
+
+    it('returns error on invalid signup data', async () => {
+      makeErrorCall()
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_ERROR_DATA)
+    })
+  })
+
+  describe('Logout functionality', () => {
+    it('logout successfully', async () => {
+      makeSuccessfulCall(MOCK_MESSAGE_DATA)
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
+    })
+
+    it('returns error on invalid signup data', async () => {
+      makeErrorCall()
+
+      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
+
+      expect(response.data).toMatchObject(MOCK_ERROR_DATA)
     })
   })
 })

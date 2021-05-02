@@ -28,10 +28,10 @@ const mockLoginData = () => ({
   }
 })
 
-const mockErrorLoginData = () => ({
+const mockErrorData = () => ({
   errors: [
     {
-      message: 'User not found or inactive!',
+      message: 'Some error messages!',
       locations: [],
       path: [],
       extensions: []
@@ -39,17 +39,44 @@ const mockErrorLoginData = () => ({
   ]
 })
 
+const mockSignupData = () => ({
+  email: genEmail(),
+  password: genPassword(),
+  name: {
+    first: genName(),
+    last: genName()
+  }
+})
+
+const mockForgotPasswordData = () => ({
+  email: genEmail()
+})
+
+const mockResetPasswordData = () => ({
+  password: genPassword(),
+  userId: genId(),
+  verificationId: genId()
+})
+
+const mockMessageData = () => ({
+  message: genNotes()
+})
+
 export {
-  genAmount,
-  genBoolean,
-  genCountryCode,
-  genCountryName,
-  genEmail,
-  genPhoneNumber,
-  genId,
-  genName,
-  genNotes,
+  mockSignupData,
+  mockResetPasswordData,
+  mockMessageData,
+  mockLoginData,
+  mockForgotPasswordData,
+  mockErrorData,
   genTitle,
-  mockErrorLoginData,
-  mockLoginData
+  genPhoneNumber,
+  genNotes,
+  genName,
+  genId,
+  genEmail,
+  genCountryName,
+  genCountryCode,
+  genBoolean,
+  genAmount
 }
