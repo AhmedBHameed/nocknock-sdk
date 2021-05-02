@@ -3687,8 +3687,9 @@ var NockNock = /** @class */ (function () {
     }
     NockNock.prototype.init = function (options) {
         this._config = options.config;
-        if (!this._config.baseURL)
+        if (!this._config.baseURL) {
             throw new Error('No base url provided! Please call init and pass some configuration');
+        }
         if (options.middleware) {
             this._httpClient = options.middleware;
         }
