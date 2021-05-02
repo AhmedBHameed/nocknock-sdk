@@ -5,7 +5,6 @@
 [![Travis](https://img.shields.io/travis/alexjoverm/typescript-library-starter.svg)](https://travis-ci.org/alexjoverm/typescript-library-starter)
 [![Coveralls](https://img.shields.io/coveralls/alexjoverm/typescript-library-starter.svg)](https://coveralls.io/github/alexjoverm/typescript-library-starter)
 [![Dev Dependencies](https://david-dm.org/alexjoverm/typescript-library-starter/dev-status.svg)](https://david-dm.org/alexjoverm/typescript-library-starter?type=dev)
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://paypal.me/AJoverMorales)
 
 Onboarding sdk for nodeys back-end server.
 
@@ -22,6 +21,11 @@ yarn add nocknock-sdk
 ```javascript
 import {init, auth} from 'nocknock-sdk'
 
-auth.login(...)
-``
+init({ config: { baseURL: 'https://www.example-domain.com' } });
+
+auth.login(...);
+auth.signup(...);
+auth.resetPassword(...);
+auth.forgotPassword(...);
+auth.logout(...);
 ```
