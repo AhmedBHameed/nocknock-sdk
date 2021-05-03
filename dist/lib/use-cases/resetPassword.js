@@ -8,7 +8,7 @@ function resetPassword(data) {
         query: "\n      mutation ResetPassword($userData: ResetPasswordInput!) {\n        resetPassword(userData: $userData) {\n            message\n          __typename\n        }\n      }\n      ",
         variables: {
             userData: {
-                newPassword: data.password,
+                password: data.newPassword,
                 userId: data.userId,
                 verificationId: data.verificationId
             }

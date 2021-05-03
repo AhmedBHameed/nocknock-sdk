@@ -37,7 +37,7 @@ export interface ForgotPasswordInput {
 }
 
 export interface ResetPasswordInput {
-  password: string
+  newPassword: string
   userId: string
   verificationId: string
 }

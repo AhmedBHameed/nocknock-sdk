@@ -3614,9 +3614,7 @@
         return this._httpClient.post('/nodeys/v1/graphql', {
             query: "\n      mutation ForgotPassword($email: String!) {\n        forgotPassword(email: $email) {\n            message\n          __typename\n        }\n      }\n      ",
             variables: {
-                userData: {
-                    email: data.email
-                }
+                email: data.email
             }
         });
     }
@@ -3653,7 +3651,7 @@
             query: "\n      mutation ResetPassword($userData: ResetPasswordInput!) {\n        resetPassword(userData: $userData) {\n            message\n          __typename\n        }\n      }\n      ",
             variables: {
                 userData: {
-                    newPassword: data.password,
+                    password: data.newPassword,
                     userId: data.userId,
                     verificationId: data.verificationId
                 }

@@ -8,17 +8,11 @@ function resetPassword<T = any>(this: NockNock, data: ResetPasswordInput): Promi
   }
 
   return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
-    query: `
-      mutation ResetPassword($userData: ResetPasswordInput!) {
-        resetPassword(userData: $userData) {
-            message
-          __typename
-        }
-      }
-      `,
+    query:
+      'mutation ResetPassword($userData: ResetPasswordInput!) {\n        resetPassword(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {
       userData: {
-        newPassword: data.password,
+        password: data.newPassword,
         userId: data.userId,
         verificationId: data.verificationId
       }

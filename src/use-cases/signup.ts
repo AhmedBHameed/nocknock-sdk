@@ -8,21 +8,15 @@ function signup<T = any>(this: NockNock, data: SignupInput): Promise<T> {
   }
 
   return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
-    query: `
-      mutation Signup($userData: SignupInput!) {
-        signup(userData: $userData) {
-            message
-          __typename
-        }
-      }
-      `,
+    query:
+      'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {
       userData: {
         email: data.email,
         password: data.password,
         name: {
-          first: data.name.first,
-          last: data.name.last
+          first: data.name.first.trim(),
+          last: data.name.last.trim()
         }
       }
     }

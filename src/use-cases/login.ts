@@ -8,16 +8,8 @@ function login<T = any>(this: NockNock, userData: LoginInput): Promise<T> {
   }
 
   return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
-    query: `
-      query Login($userData: LoginDataInput!) {
-        login(userData: $userData) {
-          accessToken
-          refreshToken
-          userRole
-          __typename
-        }
-      }
-      `,
+    query:
+      'query Login($userData: LoginDataInput!) {\n          login(userData: $userData) {\n            accessToken\n            refreshToken\n            userRole\n            __typename\n          }\n        }',
     variables: {
       userData: { email: userData.username, password: userData.password }
     }

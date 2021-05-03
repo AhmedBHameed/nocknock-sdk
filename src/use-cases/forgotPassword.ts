@@ -8,18 +8,10 @@ function forgotPassword<T = any>(this: NockNock, data: ForgotPasswordInput): Pro
   }
 
   return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
-    query: `
-      mutation ForgotPassword($email: String!) {
-        forgotPassword(email: $email) {
-            message
-          __typename
-        }
-      }
-      `,
+    query:
+      'mutation ForgotPassword($email: String!) {\n        forgotPassword(email: $email) {\n            message\n          __typename\n        }\n      }',
     variables: {
-      userData: {
-        email: data.email
-      }
+      email: data.email
     }
   })
 }

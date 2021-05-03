@@ -27,7 +27,7 @@ export interface ForgotPasswordInput {
     email: string;
 }
 export interface ResetPasswordInput {
-    password: string;
+    newPassword: string;
     userId: string;
     verificationId: string;
 }
