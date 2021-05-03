@@ -1,4 +1,4 @@
-const nockNock = require('./dist/nocknock-sdk.umd')
+const nockNock = require('../dist/nocknock-sdk.umd')
 
 nockNock.init({
   config: { withCredentials: true, baseURL: 'http://localhost:5000' }
@@ -7,10 +7,10 @@ nockNock.init({
   try {
     const res = await nockNock.auth.resetPassword({
       userId: '608ee61246cee00029bc4903',
-      verificationId: '01F4QW163QW4PQ38Z7G13DSJWB',
+      verificationId: '01F4QW93T9H2DKQTVJT5HB4H2H',
       newPassword: 'Ahmed@hihealth123'
     })
-    console.log('🚀 ~ file: index.ts ~ line 41 ~ res', res.data)
+    console.log('🚀 =>>', res.data)
   } catch (error) {
     console.log(error.response.data)
   }
