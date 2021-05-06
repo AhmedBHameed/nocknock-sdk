@@ -14,6 +14,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.auth = exports.init = void 0;
 var axios_1 = require("axios");
 var forgotPassword_1 = require("./use-cases/forgotPassword");
 var login_1 = require("./use-cases/login");
@@ -30,19 +31,17 @@ var NockNock = /** @class */ (function () {
             logout: logout_1.default.bind(this)
         };
     }
-    NockNock.prototype.init = function (options) {
-        this._config = options.config;
+    NockNock.prototype.init = function (config) {
+        this._config = config;
         if (!this._config.baseURL) {
             throw new Error('No base url provided! Please call init and pass some configuration');
         }
-        if (options.middleware) {
-            this._httpClient = options.middleware;
-        }
-        else {
-            this._httpClient = axios_1.default.create(__assign(__assign({}, this._config), { withCredentials: !!options.config.withCredentials }));
-        }
+        this._httpClient = axios_1.default.create(__assign(__assign({}, this._config), { withCredentials: !!config.withCredentials }));
     };
     return NockNock;
 }());
-exports.default = new NockNock();
+var nockNock = new NockNock();
+exports.init = nockNock.init;
+exports.auth = nockNock.auth;
+exports.default = nockNock;
 //# sourceMappingURL=nocknock-sdk.js.map

@@ -1,11 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
-import { Auth, NockNockConfiguration, Middleware } from './models/NockNockModel';
+import { Auth } from './models/NockNockModel';
 declare class NockNock {
     _httpClient: any;
-    _middleware: Middleware | undefined;
     _config: AxiosRequestConfig | undefined;
     auth: Auth;
-    init(options: NockNockConfiguration): void;
+    init(config: AxiosRequestConfig): void;
 }
-declare const _default: NockNock;
-export default _default;
+declare const nockNock: NockNock;
+export declare const init: (config: AxiosRequestConfig) => void;
+export declare const auth: Auth;
+export default nockNock;

@@ -41,5 +41,7 @@ class NockNock {
   }
 }
 
-export const nockNock = new NockNock()
+const nockNock = new NockNock()
+export const init = nockNock.init
+export const auth = nockNock.auth
 export default nockNock
