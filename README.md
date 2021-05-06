@@ -1,24 +1,30 @@
 # nocknock-sdk
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Greenkeeper badge](https://badges.greenkeeper.io/alexjoverm/typescript-library-starter.svg)](https://greenkeeper.io/)
-[![Travis](https://img.shields.io/travis/alexjoverm/typescript-library-starter.svg)](https://travis-ci.org/alexjoverm/typescript-library-starter)
-[![Coveralls](https://img.shields.io/coveralls/alexjoverm/typescript-library-starter.svg)](https://coveralls.io/github/alexjoverm/typescript-library-starter)
-[![Dev Dependencies](https://david-dm.org/alexjoverm/typescript-library-starter/dev-status.svg)](https://david-dm.org/alexjoverm/typescript-library-starter?type=dev)
+
+<!-- [![Coveralls](https://img.shields.io/coveralls/alexjoverm/typescript-library-starter.svg)](https://coveralls.io/github/alexjoverm/typescript-library-starter) -->
 
 Onboarding sdk for nodeys back-end server.
 
 ### Usage
 
 ```bash
-npm i nocknock-sdk
+npm i nocknock-sdk axios
 OR
-yarn add nocknock-sdk
+yarn add nocknock-sdk axios
+```
+
+As you see we need `axios` to make it work or you can configure your own middleware as follow:
+
+```typescript
+import { init, auth } from 'nocknock-sdk'
+
+init({ config: { baseURL: 'https://www.example-domain.com' }, middleware: fetch })
 ```
 
 ### Importing library
 
-```javascript
+```typescript
 import {init, auth} from 'nocknock-sdk'
 
 init({ config: { baseURL: 'https://www.example-domain.com' } });

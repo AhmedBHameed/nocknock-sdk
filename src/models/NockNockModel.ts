@@ -1,21 +1,10 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-export type Middleware =
-  | AxiosInstance
-  | XMLHttpRequest
-  | ((input: RequestInfo, init?: RequestInit) => Promise<Response>)
-
-export interface NockNockConfiguration {
-  middleware?: Middleware
-  config: AxiosRequestConfig
-}
-
 export type NockNock = {
   _httpClient: AxiosInstance
-  _middleware?: Middleware
   _config?: AxiosRequestConfig
   auth: Auth
-  init: (options: NockNockConfiguration) => void
+  init: (config: AxiosRequestConfig) => void
 }
 
 export interface LoginInput {

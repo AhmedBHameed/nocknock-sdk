@@ -1,3 +1,4 @@
+import { url } from '../helpers/constants'
 import { NockNock, SignupInput } from '../models/NockNockModel'
 
 function signup<T = any>(this: NockNock, data: SignupInput): Promise<T> {
@@ -7,7 +8,7 @@ function signup<T = any>(this: NockNock, data: SignupInput): Promise<T> {
     )
   }
 
-  return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
+  return this._httpClient.post<unknown, T>(url, {
     query:
       'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {

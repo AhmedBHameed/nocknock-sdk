@@ -38,7 +38,7 @@ const makeErrorCall = () => {
 describe('NockNockSdk', () => {
   it('Throw errors if init function called with no baseUrl.', async () => {
     expect(() => {
-      nockNockSdk.init({ config: {} })
+      nockNockSdk.init({})
     }).toThrowError('No base url provided! Please call init and pass some configuration')
   })
 
@@ -51,26 +51,16 @@ describe('NockNockSdk', () => {
   })
 
   it('uses default axios as http client library when middleware is not defined', async () => {
-    nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+    nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
     expect(!!nockNockSdk._httpClient).not.toBeUndefined()
     expect(!!nockNockSdk._httpClient).toBeTruthy()
-  })
-
-  it('uses middleware instead of default axios for http client library.', async () => {
-    const httpClient = new Promise(() => {})
-    nockNockSdk.init({
-      config: { baseURL: 'https://jsonplaceholder.typicode.com' },
-      middleware: httpClient as any
-    })
-    expect(!!nockNockSdk._httpClient).not.toBeUndefined()
-    expect(nockNockSdk._httpClient).toMatchObject(httpClient)
   })
 
   describe('Login functionality', () => {
     it('returns result on valid data', async () => {
       makeSuccessfulCall(MOCK_LOGIN_DATA)
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.login({
         password: 'Test@123123',
         username: 'a@b.com'
@@ -82,7 +72,7 @@ describe('NockNockSdk', () => {
     it('returns error on invalid login data', async () => {
       makeErrorCall()
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.login({
         password: 'Test@123123',
         username: 'a@b.com'
@@ -96,7 +86,7 @@ describe('NockNockSdk', () => {
     it('returns result on valid data', async () => {
       makeSuccessfulCall(MOCK_MESSAGE_DATA)
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.signup(MOCK_SIGNUP_DATA)
 
       expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
@@ -105,7 +95,7 @@ describe('NockNockSdk', () => {
     it('returns error on invalid signup data', async () => {
       makeErrorCall()
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.signup(MOCK_SIGNUP_DATA)
 
       expect(response.data).toMatchObject(MOCK_ERROR_DATA)
@@ -116,7 +106,7 @@ describe('NockNockSdk', () => {
     it('returns result on valid data', async () => {
       makeSuccessfulCall(MOCK_MESSAGE_DATA)
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.forgotPassword(MOCK_FORGOT_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
@@ -125,7 +115,7 @@ describe('NockNockSdk', () => {
     it('returns error on invalid signup data', async () => {
       makeErrorCall()
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.forgotPassword(MOCK_FORGOT_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_ERROR_DATA)
@@ -136,7 +126,7 @@ describe('NockNockSdk', () => {
     it('returns result on valid data', async () => {
       makeSuccessfulCall(MOCK_MESSAGE_DATA)
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
@@ -145,7 +135,7 @@ describe('NockNockSdk', () => {
     it('returns error on invalid signup data', async () => {
       makeErrorCall()
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_ERROR_DATA)
@@ -156,7 +146,7 @@ describe('NockNockSdk', () => {
     it('logout successfully', async () => {
       makeSuccessfulCall(MOCK_MESSAGE_DATA)
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_MESSAGE_DATA)
@@ -165,7 +155,7 @@ describe('NockNockSdk', () => {
     it('returns error on invalid signup data', async () => {
       makeErrorCall()
 
-      nockNockSdk.init({ config: { baseURL: 'https://jsonplaceholder.typicode.com' } })
+      nockNockSdk.init({ baseURL: 'https://jsonplaceholder.typicode.com' })
       const response = await nockNockSdk.auth.resetPassword(MOCK_RESET_PASSWORD_DATA)
 
       expect(response.data).toMatchObject(MOCK_ERROR_DATA)

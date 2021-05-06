@@ -1,3 +1,4 @@
+import { url } from '../helpers/constants'
 import { LoginInput, NockNock } from '../models/NockNockModel'
 
 function login<T = any>(this: NockNock, userData: LoginInput): Promise<T> {
@@ -7,7 +8,7 @@ function login<T = any>(this: NockNock, userData: LoginInput): Promise<T> {
     )
   }
 
-  return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
+  return this._httpClient.post<unknown, T>(url, {
     query:
       'query Login($userData: LoginDataInput!) {\n          login(userData: $userData) {\n            accessToken\n            refreshToken\n            userRole\n            __typename\n          }\n        }',
     variables: {

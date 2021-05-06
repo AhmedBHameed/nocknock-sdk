@@ -7,8 +7,6 @@ import {
   Auth,
   LoginFun,
   SignupFun,
-  NockNockConfiguration,
-  Middleware,
   ForgotPasswordFun,
   ResetPasswordFun,
   LogoutFun
@@ -21,7 +19,6 @@ import signup from './use-cases/signup'
 
 class NockNock {
   _httpClient!: any
-  _middleware!: Middleware | undefined
   _config!: AxiosRequestConfig | undefined
   public auth: Auth = {
     login: login.bind(this) as LoginFun,
@@ -31,21 +28,18 @@ class NockNock {
     logout: logout.bind(this) as LogoutFun
   }
 
-  init(options: NockNockConfiguration): void {
-    this._config = options.config
+  init(config: AxiosRequestConfig): void {
+    this._config = config
     if (!this._config.baseURL) {
       throw new Error('No base url provided! Please call init and pass some configuration')
     }
 
-    if (options.middleware) {
-      this._httpClient = options.middleware
-    } else {
-      this._httpClient = axios.create({
-        ...this._config,
-        withCredentials: !!options.config.withCredentials
-      })
-    }
+    this._httpClient = axios.create({
+      ...this._config,
+      withCredentials: !!config.withCredentials
+    })
   }
 }
 
-export default new NockNock()
+export const nockNock = new NockNock()
+export default nockNock

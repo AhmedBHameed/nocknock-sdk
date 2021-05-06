@@ -1,4 +1,5 @@
 import * as faker from 'faker'
+import { ResetPasswordInput } from '../src/models/NockNockModel'
 
 // Faker functions for rapid access.
 const genAmount = (): number => Math.trunc(Number(faker.finance.amount) * 100)
@@ -52,8 +53,8 @@ const mockForgotPasswordData = () => ({
   email: genEmail()
 })
 
-const mockResetPasswordData = () => ({
-  password: genPassword(),
+const mockResetPasswordData = (): ResetPasswordInput => ({
+  newPassword: genPassword(),
   userId: genId(),
   verificationId: genId()
 })

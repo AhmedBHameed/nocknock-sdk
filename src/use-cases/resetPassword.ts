@@ -1,3 +1,4 @@
+import { url } from '../helpers/constants'
 import { NockNock, ResetPasswordInput } from '../models/NockNockModel'
 
 function resetPassword<T = any>(this: NockNock, data: ResetPasswordInput): Promise<T> {
@@ -7,7 +8,7 @@ function resetPassword<T = any>(this: NockNock, data: ResetPasswordInput): Promi
     )
   }
 
-  return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
+  return this._httpClient.post<unknown, T>(url, {
     query:
       'mutation ResetPassword($userData: ResetPasswordInput!) {\n        resetPassword(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {

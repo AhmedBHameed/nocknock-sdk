@@ -1,3 +1,4 @@
+import { url } from '../helpers/constants'
 import { NockNock } from '../models/NockNockModel'
 
 function logout<T = any>(this: NockNock, username: string, password: string): Promise<T> {
@@ -7,7 +8,7 @@ function logout<T = any>(this: NockNock, username: string, password: string): Pr
     )
   }
 
-  return this._httpClient.post<unknown, T>('/nodeys/v1/graphql', {
+  return this._httpClient.post<unknown, T>(url, {
     query: `
       query Logout {
         logout {
