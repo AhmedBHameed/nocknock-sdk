@@ -1,12 +1,13 @@
 # nocknock-sdk
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-
 [![npm version](https://badge.fury.io/js/nocknock-sdk.svg)](//npmjs.com/package/nocknock-sdk)
 
 <!-- [![Coveralls](https://img.shields.io/coveralls/alexjoverm/nocknock-sdk.svg)](https://coveralls.io/github/alexjoverm/nocknock-sdk) -->
 
 Onboarding sdk for nodeys back-end server.
+
+> Nodeys is a private project with micro services echosystem.
 
 ### Usage
 
