@@ -1,6 +1,6 @@
 {
   "name": "nocknock-sdk",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "dist/nocknock-sdk.umd.js",
