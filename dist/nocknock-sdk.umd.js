@@ -34,47 +34,47 @@
 
     var url = '/nodeys/v1/graphql';
 
-    function forgotPassword(data) {
-        if (!this._httpClient) {
+    var forgotPassword = function (config) { return function (data) {
+        if (!config._httpClient) {
             throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
         }
-        return this._httpClient.post(url, {
+        return config._httpClient.post(url, {
             query: 'mutation ForgotPassword($email: String!) {\n        forgotPassword(email: $email) {\n            message\n          __typename\n        }\n      }',
             variables: {
                 email: data.email
             }
         });
-    }
+    }; };
 
-    function login(userData) {
-        if (!this._httpClient) {
+    var login = function (config) { return function (userData) {
+        if (!config._httpClient) {
             throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
         }
-        return this._httpClient.post(url, {
+        return config._httpClient.post(url, {
             query: 'query Login($userData: LoginDataInput!) {\n          login(userData: $userData) {\n            accessToken\n            refreshToken\n            userRole\n            __typename\n          }\n        }',
             variables: {
                 userData: { email: userData.username, password: userData.password }
             }
         });
-    }
+    }; };
 
-    function logout(username, password) {
-        if (!this._httpClient) {
+    var logout = function (config) { return function (username, password) {
+        if (!config._httpClient) {
             throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
         }
-        return this._httpClient.post(url, {
+        return config._httpClient.post(url, {
             query: "\n      query Logout {\n        logout {\n            message\n          __typename\n        }\n      }\n      ",
             variables: {
                 userData: { email: username, password: password }
             }
         });
-    }
+    }; };
 
-    function resetPassword(data) {
-        if (!this._httpClient) {
+    var resetPassword = function (config) { return function (data) {
+        if (!config._httpClient) {
             throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
         }
-        return this._httpClient.post(url, {
+        return config._httpClient.post(url, {
             query: 'mutation ResetPassword($userData: ResetPasswordInput!) {\n        resetPassword(userData: $userData) {\n            message\n          __typename\n        }\n      }',
             variables: {
                 userData: {
@@ -84,13 +84,13 @@
                 }
             }
         });
-    }
+    }; };
 
-    function signup(data) {
-        if (!this._httpClient) {
+    var signup = function (config) { return function (data) {
+        if (!config._httpClient) {
             throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
         }
-        return this._httpClient.post(url, {
+        return config._httpClient.post(url, {
             query: 'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
             variables: {
                 userData: {
@@ -103,35 +103,28 @@
                 }
             }
         });
-    }
+    }; };
 
     // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
-    var NockNock = /** @class */ (function () {
-        function NockNock() {
-            this.auth = {
-                login: login.bind(this),
-                signup: signup.bind(this),
-                forgotPassword: forgotPassword.bind(this),
-                resetPassword: resetPassword.bind(this),
-                logout: logout.bind(this)
-            };
+    function init(config) {
+        var _config;
+        var _httpClient;
+        _config = config;
+        if (!_config.baseURL) {
+            throw new Error('No base url provided! Please call init and pass some configuration');
         }
-        NockNock.prototype.init = function (config) {
-            this._config = config;
-            if (!this._config.baseURL) {
-                throw new Error('No base url provided! Please call init and pass some configuration');
-            }
-            this._httpClient = axios.create(__assign(__assign({}, this._config), { withCredentials: !!config.withCredentials }));
+        _httpClient = axios.create(__assign(__assign({}, _config), { withCredentials: !!config.withCredentials }));
+        var auth = {
+            login: login({ _httpClient: _httpClient, _config: _config }),
+            signup: signup({ _httpClient: _httpClient, _config: _config }),
+            forgotPassword: forgotPassword({ _httpClient: _httpClient, _config: _config }),
+            resetPassword: resetPassword({ _httpClient: _httpClient, _config: _config }),
+            logout: logout({ _httpClient: _httpClient, _config: _config })
         };
-        return NockNock;
-    }());
-    var nockNock = new NockNock();
-    var init = nockNock.init;
-    var auth = nockNock.auth;
+        return auth;
+    }
 
     exports.init = init;
-    exports.auth = auth;
-    exports.default = nockNock;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

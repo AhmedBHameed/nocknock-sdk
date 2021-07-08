@@ -1,3 +1,3 @@
 import { LoginInput, NockNock } from '../models/NockNockModel';
-declare function login<T = any>(this: NockNock, userData: LoginInput): Promise<T>;
+declare const login: (config: NockNock) => <T = any>(userData: LoginInput) => Promise<T>;
 export default login;

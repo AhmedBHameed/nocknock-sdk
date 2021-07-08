@@ -1,3 +1,3 @@
 import { NockNock, ForgotPasswordInput } from '../models/NockNockModel';
-declare function forgotPassword<T = any>(this: NockNock, data: ForgotPasswordInput): Promise<T>;
+declare const forgotPassword: (config: NockNock) => <T = any>(data: ForgotPasswordInput) => Promise<T>;
 export default forgotPassword;

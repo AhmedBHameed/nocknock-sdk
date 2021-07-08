@@ -1,3 +1,3 @@
 import { NockNock, ResetPasswordInput } from '../models/NockNockModel';
-declare function resetPassword<T = any>(this: NockNock, data: ResetPasswordInput): Promise<T>;
+declare const resetPassword: (config: NockNock) => <T = any>(data: ResetPasswordInput) => Promise<T>;
 export default resetPassword;

@@ -14,34 +14,29 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.auth = exports.init = void 0;
+exports.init = void 0;
 var axios_1 = require("axios");
 var forgotPassword_1 = require("./use-cases/forgotPassword");
 var login_1 = require("./use-cases/login");
 var logout_1 = require("./use-cases/logout");
 var resetPassword_1 = require("./use-cases/resetPassword");
 var signup_1 = require("./use-cases/signup");
-var NockNock = /** @class */ (function () {
-    function NockNock() {
-        this.auth = {
-            login: login_1.default.bind(this),
-            signup: signup_1.default.bind(this),
-            forgotPassword: forgotPassword_1.default.bind(this),
-            resetPassword: resetPassword_1.default.bind(this),
-            logout: logout_1.default.bind(this)
-        };
+function init(config) {
+    var _config;
+    var _httpClient;
+    _config = config;
+    if (!_config.baseURL) {
+        throw new Error('No base url provided! Please call init and pass some configuration');
     }
-    NockNock.prototype.init = function (config) {
-        this._config = config;
-        if (!this._config.baseURL) {
-            throw new Error('No base url provided! Please call init and pass some configuration');
-        }
-        this._httpClient = axios_1.default.create(__assign(__assign({}, this._config), { withCredentials: !!config.withCredentials }));
+    _httpClient = axios_1.default.create(__assign(__assign({}, _config), { withCredentials: !!config.withCredentials }));
+    var auth = {
+        login: login_1.default({ _httpClient: _httpClient, _config: _config }),
+        signup: signup_1.default({ _httpClient: _httpClient, _config: _config }),
+        forgotPassword: forgotPassword_1.default({ _httpClient: _httpClient, _config: _config }),
+        resetPassword: resetPassword_1.default({ _httpClient: _httpClient, _config: _config }),
+        logout: logout_1.default({ _httpClient: _httpClient, _config: _config })
     };
-    return NockNock;
-}());
-var nockNock = new NockNock();
-exports.init = nockNock.init;
-exports.auth = nockNock.auth;
-exports.default = nockNock;
+    return auth;
+}
+exports.init = init;
 //# sourceMappingURL=nocknock-sdk.js.map
