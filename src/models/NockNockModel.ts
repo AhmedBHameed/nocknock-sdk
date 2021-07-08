@@ -3,8 +3,6 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 export type NockNock = {
   _httpClient: AxiosInstance
   _config?: AxiosRequestConfig
-  auth: Auth
-  init: (config: AxiosRequestConfig) => void
 }
 
 export interface LoginInput {

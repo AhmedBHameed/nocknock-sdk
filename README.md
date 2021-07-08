@@ -21,9 +21,9 @@ yarn add nocknock-sdk axios
 ### Importing library
 
 ```typescript
-import {init, auth} from 'nocknock-sdk'
+import {init} from '../src/nocknock-sdk'
 
-init({baseURL: 'https://www.your-graphql-domain.com'});
+const auth = init({baseURL: 'https://www.your-graphql-domain.com'});
 
 auth.login(...);
 auth.signup(...);

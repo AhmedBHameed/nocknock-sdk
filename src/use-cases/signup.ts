@@ -1,14 +1,14 @@
 import { url } from '../helpers/constants'
 import { NockNock, SignupInput } from '../models/NockNockModel'
 
-function signup<T = any>(this: NockNock, data: SignupInput): Promise<T> {
-  if (!this._httpClient) {
+const signup = (config: NockNock) => <T = any>(data: SignupInput): Promise<T> => {
+  if (!config._httpClient) {
     throw new Error(
       'You have to initialize some configuration first. Please call .init() method and set some configuration.'
     )
   }
 
-  return this._httpClient.post<unknown, T>(url, {
+  return config._httpClient.post<unknown, T>(url, {
     query:
       'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {
