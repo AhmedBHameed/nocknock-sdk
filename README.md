@@ -6,9 +6,9 @@
 
 <!-- [![Coveralls](https://img.shields.io/coveralls/alexjoverm/nocknock-sdk.svg)](https://coveralls.io/github/alexjoverm/nocknock-sdk) -->
 
-Onboarding sdk for nodeys back-end server.
+Onboarding sdk for `nodeys` back-end server.
 
-> Nodeys is a private project with micro services echosystem.
+> Nodeys is a private project with echosystem micro services.
 
 ### Usage
 
@@ -18,20 +18,12 @@ OR
 yarn add nocknock-sdk axios
 ```
 
-As you see we need `axios` to make it work or you can configure your own middleware as follow:
-
-```typescript
-import { init, auth } from 'nocknock-sdk'
-
-init({ config: { baseURL: 'https://www.example-domain.com' }, middleware: fetch })
-```
-
 ### Importing library
 
 ```typescript
 import {init, auth} from 'nocknock-sdk'
 
-init({ config: { baseURL: 'https://www.example-domain.com' } });
+init({baseURL: 'https://www.your-graphql-domain.com'});
 
 auth.login(...);
 auth.signup(...);
