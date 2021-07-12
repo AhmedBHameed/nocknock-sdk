@@ -6,7 +6,7 @@ var signup = function (config) { return function (data) {
         throw new Error('You have to initialize some configuration first. Please call .init() method and set some configuration.');
     }
     return config._httpClient.post(constants_1.url, {
-        query: 'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
+        query: 'mutation Signup($userData: Signup!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
         variables: {
             userData: {
                 email: data.email,

@@ -10,7 +10,7 @@ const signup = (config: NockNock) => <T = any>(data: SignupInput): Promise<T> =>
 
   return config._httpClient.post<unknown, T>(url, {
     query:
-      'mutation Signup($userData: SignupInput!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
+      'mutation Signup($userData: Signup!) {\n        signup(userData: $userData) {\n            message\n          __typename\n        }\n      }',
     variables: {
       userData: {
         email: data.email,
